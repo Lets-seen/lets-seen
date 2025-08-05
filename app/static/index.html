@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Telegram Gifts Viewer</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+  :root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --background: #f3f4f6;
+    --card-bg: #ffffff;
+    --text-color: #1f2937;
+    --border-color: #e5e7eb;
+    --error-color: #ef4444;
+    --link-color: #4f46e5;
+    --link-hover: #3730a3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--background);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0 15px 40px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    margin: 40px 0 20px;
+    font-weight: 600;
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--primary-color);
+  }
+  form {
+    background: var(--card-bg);
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(79,70,229,0.15);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    max-width: 700px;
+    justify-content: center;
+  }
+  select, input[type="text"], input[type="number"] {
+    flex: 1 1 200px;
+    min-width: 180px;
+    padding: 14px 18px;
+    font-size: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+  }
+  select:focus, input[type="text"]:focus, input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(79,70,229,0.4);
+  }
+  button {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.15s ease;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(79,70,229,0.3);
+  }
+  button:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
+  }
+  button:active {
+    transform: scale(0.98);
+  }
+  .error {
+    margin-top: 18px;
+    color: var(--error-color);
+    font-weight: 600;
+    text-align: center;
+    max-width: 700px;
+  }
+  .results {
+    margin-top: 35px;
+    width: 100%;
+    max-width: 900px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+  }
+  th, td {
+    padding: 16px 22px;
+    text-align: left;
+  }
+  th {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  tbody tr:hover {
+    background: #e0e7ff;
+    cursor: default;
+  }
+  td a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  td a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+  }
+  @media (max-width: 650px) {
+    form {
+      flex-direction: column;
+      padding: 20px;
+    }
+    select, input[type="text"], input[type="number"], button {
+      flex: none;
+      width: 100%;
+    }
+    table, th, td {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<h1>Парсер от бога Летс сина</h1>
+
+<form id="giftForm" autocomplete="off">
+  <select id="model" name="model" required>
+    <option value="" disabled selected>Выберите модель подарка</option>
+<option value="PlushPepe">PlushPepe</option>
+<option value="HeartLocket">HeartLocket</option>
+<option value="DurovsCap">DurovsCap</option>
+<option value="PreciousPeach">PreciousPeach</option>
+<option value="HeroicHelmet">HeroicHelmet</option>
+<option value="NailBracelet">NailBracelet</option>
+<option value="LootBag">LootBag</option>
+<option value="WestsideSign">WestsideSign</option>
+<option value="PerfumeBottle">PerfumeBottle</option>
+<option value="MiniOscar">MiniOscar</option>
+<option value="AstralShard">AstralShard</option>
+<option value="IonGem">IonGem</option>
+<option value="GemSignet">GemSignet</option>
+<option value="MagicPotion">MagicPotion</option>
+<option value="BondedRing">BondedRing</option>
+<option value="ScaredCat">ScaredCat</option>
+<option value="GenieLamp">GenieLamp</option>
+<option value="SharpTongue">SharpTongue</option>
+<option value="LowRider">LowRider</option>
+<option value="KissedFrog">KissedFrog</option>
+<option value="SwissWatch">SwissWatch</option>
+<option value="ElectricSkull">ElectricSkull</option>
+<option value="SignetRing">SignetRing</option>
+<option value="NekoHelmet">NekoHelmet</option>
+<option value="VintageCigar">VintageCigar</option>
+<option value="DiamondRing">DiamondRing</option>
+<option value="ToyBear">ToyBear</option>
+<option value="MadPumpkin">MadPumpkin</option>
+<option value="VoodooDoll">VoodooDoll</option>
+<option value="EternalRose">EternalRose</option>
+<option value="CupidCharm">CupidCharm</option>
+<option value="TopHat">TopHat</option>
+<option value="LovePotion">LovePotion</option>
+<option value="FlyingBroom">FlyingBroom</option>
+<option value="RecordPlayer">RecordPlayer</option>
+<option value="LoveCandle">LoveCandle</option>
+<option value="CrystalBall">CrystalBall</option>
+<option value="SkullFlower">SkullFlower</option>
+<option value="SleighBell">SleighBell</option>
+<option value="TrappedHeart">TrappedHeart</option>
+<option value="SnoopCigar">SnoopCigar</option>
+<option value="HangingStar">HangingStar</option>
+<option value="SakuraFlower">SakuraFlower</option>
+<option value="ValentineBox">ValentineBox</option>
+<option value="BerryBox">BerryBox</option>
+<option value="EvilEye">EvilEye</option>
+<option value="JellyBunny">JellyBunny</option>
+<option value="BunnyMuffin">BunnyMuffin</option>
+<option value="SnowMittens">SnowMittens</option>
+<option value="BowTie">BowTie</option>
+<option value="LightSword">LightSword</option>
+<option value="EternalCandle">EternalCandle</option>
+<option value="SpyAgaric">SpyAgaric</option>
+<option value="WitchHat">WitchHat</option>
+<option value="SnowGlobe">SnowGlobe</option>
+<option value="JoyfulBundle">JoyfulBundle</option>
+<option value="SpicedWine">SpicedWine</option>
+<option value="EasterEgg">EasterEgg</option>
+<option value="HexPot">HexPot</option>
+<option value="RestlessJar">RestlessJar</option>
+<option value="SwagBag">SwagBag</option>
+<option value="LushBouquet">LushBouquet</option>
+<option value="SnoopDogg">SnoopDogg</option>
+<option value="JackInTheBox">JackInTheBox</option>
+<option value="StarNotepad">StarNotepad</option>
+<option value="SantaHat">SantaHat</option>
+<option value="HypnoLollipop">HypnoLollipop</option>
+<option value="TamaGadget">TamaGadget</option>
+<option value="JesterHat">JesterHat</option>
+<option value="GingerCookie">GingerCookie</option>
+<option value="JingleBells">JingleBells</option>
+<option value="PartySparkler">PartySparkler</option>
+<option value="WinterWreath">WinterWreath</option>
+<option value="CookieHeart">CookieHeart</option>
+<option value="BigYear">BigYear</option>
+<option value="HolidayDrink">HolidayDrink</option>
+<option value="PetSnake">PetSnake</option>
+<option value="HomemadeCake">HomemadeCake</option>
+<option value="XmasStocking">XmasStocking</option>
+<option value="WhipCupcake">WhipCupcake</option>
+<option value="SnakeBox">SnakeBox</option>
+<option value="LunarSnake">LunarSnake</option>
+<option value="LolPop">LolPop</option>
+<option value="DeskCalendar">DeskCalendar</option>
+<option value="CandyCane">CandyCane</option>
+<option value="BDayCandle">BDayCandle</option>
+  </select>
+
+  <input
+    type="text"
+    id="idRange"
+    name="idRange"
+    placeholder="Диапазон ID (например 1-150)"
+    pattern="^\d+-\d+$"
+    title="Формат: число-число, например 1-150"
+    required
+    spellcheck="false"
+  />
+
+  <button type="submit" aria-label="Найти владельцев подарков">Найти</button>
+</form>
+
+<div class="error" id="error"></div>
+
+<div class="results" id="results"></div>
+
+<script>
+  const form = document.getElementById("giftForm");
+  const resultsDiv = document.getElementById("results");
+  const errorDiv = document.getElementById("error");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorDiv.textContent = "";
+    resultsDiv.innerHTML = "";
+
+    const model = document.getElementById("model").value.trim();
+    const idRange = document.getElementById("idRange").value.trim();
+
+    if (!/^\d+-\d+$/.test(idRange)) {
+      errorDiv.textContent = "Диапазон ID должен быть в формате start-end, например 1-150";
+      return;
+    }
+
+    resultsDiv.innerHTML = `<p style="text-align:center; font-style: italic; color: #6b7280;">Загрузка данных, подождите...</p>`;
+
+    try {
+      const response = await fetch(`/api/gifts?model=${encodeURIComponent(model)}&id_range=${encodeURIComponent(idRange)}&limit=50`);
+      if (!response.ok) {
+        const err = await response.json();
+        errorDiv.textContent = `Ошибка API: ${err.detail || response.statusText}`;
+        resultsDiv.innerHTML = "";
+        return;
+      }
+      const data = await response.json();
+
+      if (!data.results.length) {
+        resultsDiv.innerHTML = `<p style="text-align:center; font-style: italic;">Владелец не найден для указанных параметров.</p>`;
+        return;
+      }
+
+      let tableHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>ID подарка</th>
+            <th>Владелец</th>
+            <th>Ссылка</th>
+          </tr>
+        </thead>
+        <tbody>`;
+
+      for (const gift of data.results) {
+        const ownerName = gift.owner.startsWith("@") ? gift.owner : "@" + gift.owner;
+        tableHTML += `
+          <tr>
+            <td>${gift.id}</td>
+            <td><a href="https://t.me/${ownerName.slice(1)}" target="_blank" rel="noopener noreferrer" aria-label="Перейти к владельцу ${ownerName}">${ownerName}</a></td>
+            <td><a href="${gift.link}" target="_blank" rel="noopener noreferrer" aria-label="Перейти к подарку ${gift.model} #${gift.id}">Открыть</a></td>
+          </tr>`;
+      }
+
+      tableHTML += "</tbody></table>";
+      resultsDiv.innerHTML = tableHTML;
+
+    } catch (err) {
+      errorDiv.textContent = "Ошибка при загрузке данных. Попробуйте позже.";
+      resultsDiv.innerHTML = "";
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
